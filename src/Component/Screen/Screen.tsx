@@ -1,7 +1,7 @@
 import {SuperScreen} from "./SuperScreen/SuperScreen";
 
 type propsScreen = {
-    counter: number
+    counter?: number
 }
 export const Screen = (props: propsScreen) => {
     return (

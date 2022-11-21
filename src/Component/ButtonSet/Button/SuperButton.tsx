@@ -1,7 +1,7 @@
 
 type propsSuperButton ={
-  disabled:any
-  onClick:any
+  disabled?:any
+  onClick?:any
   logo:any
 }
 
