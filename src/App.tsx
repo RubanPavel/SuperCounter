@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {ButtonSet} from "./Component/ButtonSet/ButtonSet";
+import {Screen} from "./Component/Screen/Screen";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export const App = () => {
+
+    const [counter, setCounter] = useState(0);
+
+    const step = 1; //step for counter
+
+    const inc = () => {
+        setCounter(counter + step)
+    }
+
+    const dec = () => {
+        setCounter(counter - step)
+    }
+
+    const reset = () => {
+        setCounter(0)
+    }
+
+
+    return (
+        <div className="App">
+            <Screen counter={counter}/>
+            <ButtonSet counter={counter} inc={inc} dec={dec} reset={reset}/>
+
+        </div>
+    );
 }
 
-export default App;
+
+
+
+
+
+
