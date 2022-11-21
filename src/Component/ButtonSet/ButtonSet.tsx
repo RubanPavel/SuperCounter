@@ -11,7 +11,7 @@ type propsType = {
 
 export const ButtonSet = (props: propsType) => {
 
-    const counterMax = 5;
+    const counterMax = 15;
     const counterMin = 0;
 
     return (
