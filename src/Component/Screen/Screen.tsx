@@ -1,12 +1,15 @@
-import {SuperScreen} from "./SuperScreen/SuperScreen";
+
+import {TextField} from "@mui/material";
 
 type propsScreen = {
-    counter?: number
+    counter?:any
+    error?:any
 }
 export const Screen = (props: propsScreen) => {
+
+
+    /*placeholder={props.error? props.error : props.counter + props.error}*/
     return (
-        <SuperScreen counter={props.counter}/>
-
-
+        <TextField multiline maxRows={3}  id={"outlined-basic"}    variant={"outlined"} value={props.error? props.error : props.counter}      />
     )
 }

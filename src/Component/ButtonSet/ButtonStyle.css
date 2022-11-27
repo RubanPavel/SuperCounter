@@ -1,0 +1,24 @@
+.buttonSet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.button_top {
+    padding-top: 40px;
+    display: flex;
+    width: 150px;
+    justify-content:  space-between;
+
+}
+
+.button_down {
+    padding-top: 20px;
+    display: flex;
+    width: 150px;
+    justify-content: center;
+
+
+}

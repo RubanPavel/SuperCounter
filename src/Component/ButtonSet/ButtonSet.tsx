@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {SuperButton} from "./Button/SuperButton";
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
+import './ButtonStyle.css';
 
 type propsType = {
     inc: () => void
@@ -15,12 +17,15 @@ export const ButtonSet = (props: propsType) => {
 
 
     return (
-        <div>
-            <div>
-                <SuperButton disabled={props.counter === props.counterMin} onClick={props.dec} logo={'-'}/>
-                <SuperButton disabled={props.counter === props.counterMax} onClick={props.inc} logo={'+'}/>
+        <div className={'buttonSet'}>
+            <div className={'button_top'}>
+                <SuperButton variant="contained" disabled={props.counter === props.counterMin} onClick={props.dec} logo={'-'}/>
+                <SuperButton variant="contained" disabled={props.counter === props.counterMax} onClick={props.inc} logo={'+'}/>
+            </div  >
+            <div className={'button_down'}>
+                <SuperButton variant="outlined" startIcon={<DeleteOutlined/>} disabled={props.counter === props.counterMin} onClick={props.reset} logo={'reset'}/>
             </div>
-            <SuperButton disabled={props.counter === props.counterMin} onClick={props.reset} logo={'reset'}/>
+
 
 
         </div>

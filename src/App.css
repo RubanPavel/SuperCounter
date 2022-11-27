@@ -1,8 +1,43 @@
 .App {
     display: flex;
+    justify-content: center;
+    margin-top: 100px;
 
+    align-items: center;
 }
-.error{
+
+.error {
     color: red;
     font-size: 20px;
+}
+
+.counterBody {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+
+}
+
+.counterSet {
+    padding: 10px;
+    border: 3px solid cornflowerblue;
+    border-radius: 5px;
+}
+
+.counterSet_inputs {
+    padding: 10px;
+    width: 300px;
+}
+
+.counterSet_buttons {
+    padding: 10px;
+}
+
+.counter {
+    padding: 10px;
+    border: 3px solid cornflowerblue;
+    border-radius: 5px;
+}
+.wsdws{
+    display: flex;
 }

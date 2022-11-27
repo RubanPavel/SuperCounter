@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import {ButtonSet} from "./Component/ButtonSet/ButtonSet";
 import {Screen} from "./Component/Screen/Screen";
 import {SuperButton} from "./Component/ButtonSet/Button/SuperButton";
 import {SuperInput} from "./Component/InputSet/SuperInput/SuperInput";
+import {restoreState, saveState} from "./Component/local";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
 export const App = () => {
 
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState<number>(0);
 
-    const [error, setError] = useState('');
-
+    const [error, setError] = useState<any>('');
 
 
     const step = 1; //step for counter
@@ -25,53 +26,103 @@ export const App = () => {
         setCounter(counterMin)
     }
 
+    const [counterMax, setCounterMax] = useState<any>(0);
+    const [counterMin, setCounterMin] = useState<any>(0);
 
-    const MaxValueGet = (value: string) => {
-        setCounterMax(Number(value))
+
+    const save = () => {
+        saveState<number>('valueMax', counterMax)
+        saveState<number>('valueMin', counterMin)
+    }
+    const restore = () => {
+        setCounterMax(restoreState<number>('valueMax', counterMax))
+        setCounterMin(restoreState<number>('valueMin', counterMin))
     }
 
-    const MinValueGet = (value: string) => {
-        setCounterMin(Number(value))
+    const clear = () => {
+        localStorage.clear()
+        setCounterMax(0)
+        setCounterMin(0)
     }
 
     const setNew = () => {
+        setCounter(counterMin)
+        save()
+        reset()
+        Check()
 
-        if (counterMin >= counterMax) {
-            setError('ERRROOOR')
-        } else {
-            setCounter(counterMin)
-            setError('')
-        }
 
     }
 
-    const [counterMax, setCounterMax] = useState(0);
+    const restoreNew = () => {
+        restore()
+        reset()
+    }
 
-    const [counterMin, setCounterMin] = useState(0);
+    const Check = () => {
 
 
-    localStorage.setItem('MAXKey', '5')
-    localStorage.setItem('MINKey', '0')
+        if (counterMin < 0) {
+            setError('Start value must be positive!!!')
+        } else if (counterMax <= counterMin) {
+            setError('the maximum value must be greater than the starting value!!!')
 
-    let MaxValue = localStorage.getItem('MAXKey')
-    let MinValue = localStorage.getItem('MINKey')
+        } else if (counterMin === counterMax) {
+            setError('the maximum value must not be equal to the starting value')
+        }else setError("")
+
+        /*else if (counterMin > 0) {
+            setError('+')
+        } else if (counterMin < counterMax) {
+            setError('+')
+        } */
+    }
+
+    const MaxValueGetHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setCounterMax(Number(e.currentTarget.value))
+    }
+
+    const MinValueGetHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setCounterMin(Number(e.currentTarget.value))
+
+    }
 
     return (
         <div className="App">
-            <div>
-                <div>
-                    <div>
-                        <SuperInput MaxValueGet={MaxValueGet} MinValueGet={MinValueGet}/>
+            <div className="counterBody">
+                <div className="counterSet">
+                    <div className="counterSet_inputs">
+                        <SuperInput
+                            id={"outlined-basic"}
+                            label={"Outlined"}
+                            variant={"outlined"}
+                            error={error}
+                            setCounter={MaxValueGetHandler}
+                            counter={counterMax}
+                        />
+                        <SuperInput
+                            id={"outlined-basic"}
+                            label={"Outlined"}
+                            variant={"outlined"}
+                            error={error}
+                            setCounter={MinValueGetHandler}
+                            counter={counterMin}
+                        />
                     </div>
-
+                    <div className="counterSet_buttons">
+                        <SuperButton variant="contained" onClick={setNew} logo={'save'}/>
+                        <SuperButton variant="outlined" onClick={restoreNew} logo={'restore'}/>
+                        <SuperButton variant="outlined" onClick={clear} startIcon={<DeleteIcon/>} logo={'clear'}/>
+                    </div>
                 </div>
-                <SuperButton onClick={setNew} logo={'SET'}/>
-                <span className='error'>{error}</span>
-            </div>
-            <Screen counter={counter}/>
-            <ButtonSet counter={counter} counterMax={counterMax} counterMin={counterMin} inc={inc} dec={dec}
-                       reset={reset}/>
 
+                <div className="counter">
+
+                    <Screen error={error} counter={counter}/>
+                    <ButtonSet counter={counter} counterMax={counterMax} counterMin={counterMin} inc={inc} dec={dec}
+                               reset={reset}/>
+                </div>
+            </div>
         </div>
     );
 }

@@ -1,0 +1,15 @@
+.inputError{
+    background-color: red;
+}
+.inputGood{
+    background-color: aquamarine;
+}
+
+.inputStyle{
+
+    border-radius: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: center;
+
+}

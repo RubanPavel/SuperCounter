@@ -1,33 +1,30 @@
-import {Simulate} from "react-dom/test-utils";
 import {ChangeEvent} from "react";
+import './InputStules.css';
+import {TextField} from "@mui/material";
 
 type SuperInputType = {
-    MinValue?: any
-    MaxValue?: any
-    MaxValueGet:(value: string)=>void
-    MinValueGet:(value: string)=>void
+    id: string
+    label: string
+    variant: string
+    counter?: number
+    setCounter?: (e: ChangeEvent<HTMLInputElement>) => void
+    error: 'Start value must be positive!!!' |"the maximum value must be greater than the starting value!!!" |"the maximum value must not be equal to the starting value"| ""
+
 }
 
-{/*value={props.MaxValue}*/}
-{/*value={props.MinValue}*/}
+
 export const SuperInput = (props: SuperInputType) => {
 
 
-
-    const MaxValueGetCallBack = (e: ChangeEvent<HTMLInputElement>) => {
-        props.MaxValueGet(e.currentTarget.value)
-    }
-
-    const MinValueGetCallBack = (e: ChangeEvent<HTMLInputElement>) => {
-        props.MinValueGet(e.currentTarget.value)
-    }
-
     return (
         <div>
-            <div><input type="number"  onChange={MaxValueGetCallBack}/></div>
+            <div className={'inputStyle'}>
+                <TextField  className={(props.error !== "") ? 'inputError' : ''} type={"number"}
+                           value={props.counter} onChange={props.setCounter}/>
+            </div>
 
-            <input type="number" onChange={MinValueGetCallBack}/>
+
         </div>
-    )
+    );
 
 }
